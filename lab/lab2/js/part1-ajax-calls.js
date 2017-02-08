@@ -19,7 +19,15 @@
   This recipe, can be used by underscore's _.filter. It will return only words with
    >=5 characters.
 ===================== */
-var isLengthOfFiveOrMore = function(str) {};
+var isLengthOfFiveOrMore = function(str) {
+  if (str.length > 5){
+    return true;}
+  else {
+    return false;
+  }
+};
+
+/* var isLengthOfFiveOrMore = function(str){ return str.length>5;}; */
 
 console.log("isLengthOfFiveOrMore success:",
   _.isEqual(_.filter(['this', 'is','a', 'test', 'testing'], isLengthOfFiveOrMore), ['testing']));
@@ -30,15 +38,19 @@ console.log("isLengthOfFiveOrMore success:",
   function you write along with underscore's _.each to log the double of every
   number in the provided array.
 ===================== */
-var logDouble = function(num) {};
+
+
 var theArray = [1, 5, 20, 100];
+var logDouble = theArray.map(function(num) {return num * 2});
+
+console.log(logDouble);
 
 
 /* =====================
   Given this already defined function, define fizzbuzzArray so that, when mapped
   over, it will equal ['fizz', 'buzz', 'fizzbuzz'];
 ===================== */
-var fizzbuzzArray = [];
+var fizzbuzzArray = [9, 10, 30];
 var fizzbuzzFunc = function(num) {
   var str = '';
   if (num % 3 === 0) { str = 'fizz'; }
@@ -105,12 +117,34 @@ var phillyBikeCrashesDataUrl = "https://raw.githubusercontent.com/CPLN692-MUSA61
 ===================== */
 
 
+/*var url =  "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+$.ajax(url).done(function(ajaxResponseValue) {
+  var phillyBikeCrashesData_parsed = JSON.parse(ajaxResponseValue);
+  console.log(phillyBikeCrashesData_parsed);
+  var phlBC_lat = phillyBikeCrashesData_parsed.map(function(y){
+    console.log(y.LAT);
+  });
+  var phlBC_lng = phillyBikeCrashesData_parsed.map(function(y){
+    console.log(y.LNG);
+  });
+});
+
+*/
+
+
+/*var url =  "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+$.ajax(url).done(function(ajaxResponseValue) {
+
+  var phillyBikeCrashesData_parsed = JSON.parse(ajaxResponseValue);
+  console.log(phillyBikeCrashesData_parsed);
+  _.map(phillyBikeCrashesData_parsed, function(y){
+    L.marker([y.LAT,y.LNG]).addTo(map);
+  });*/
+
 /* =====================
   Now that you've properly parsed your data, use _.each to plot the
   dataset you've pulled down.
 ===================== */
-
-
 /* =====================
  Leaflet setup - feel free to ignore this
 ===================== */
@@ -126,3 +160,30 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
   maxZoom: 20,
   ext: 'png'
 }).addTo(map);
+
+/* add markers to map */
+/*
+var url =  "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+$.ajax(url).done(function(ajaxResponseValue) {
+  var phillyBikeCrashesData_parsed = JSON.parse(ajaxResponseValue);
+  console.log(phillyBikeCrashesData_parsed);
+  var phlBC_lat = phillyBikeCrashesData_parsed.map(function(y){
+    console.log(y.LAT);
+  });
+  var phlBC_lng = phillyBikeCrashesData_parsed.map(function(y){
+    console.log(y.LNG);
+  });
+  var addPHLBCmarkers = phillyBikeCrashesData_parsed.map(function(y){
+    L.marker([y.LAT, y.LNG]).addTo(map);
+  });
+});
+*/
+
+var url =  "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+$.ajax(url).done(function(ajaxResponseValue) {
+  var phillyBikeCrashesData_parsed = JSON.parse(ajaxResponseValue);
+  console.log(phillyBikeCrashesData_parsed);
+  var addPHLBCmarkers = phillyBikeCrashesData_parsed.map(function(y){
+    L.marker([y.LAT, y.LNG]).addTo(map);
+  });
+});

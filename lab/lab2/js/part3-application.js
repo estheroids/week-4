@@ -1,3 +1,13 @@
+/*
+
+allMyData = {
+  policeData: null,
+  bikeData: null
+}
+
+$ajax("http://policedata.com").done(function(data){allMyData.policeData = data})
+$ajax("http://bikedata.com").done(function(data){allMyData.bikeData = data})
+
 /* =====================
   Lab 2, part3: a full application (stretch goal)
 

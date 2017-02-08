@@ -33,10 +33,16 @@
 ===================== */
 
 // We set this to HTTP to prevent 'CORS' issues
-var downloadData = $.ajax("http://");
-var parseData = function() {};
-var makeMarkers = function() {};
-var plotMarkers = function() {};
+
+/*var downloadData = $.ajax("https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json");
+var url = "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+var parseData = $.ajax(url).done(function(pD) {
+  var parsed = JSON.parse(pD);
+  console.log (parsed);});
+var makeMarkers = _.map(parseData, function(make){
+  L.marker([make.LAT, make.LNG]);
+});
+var plotMarkers =  makeMarkers.map(function(pM){L.marker(pM).addTo(map);}); */
 
 
 /* =====================
@@ -52,8 +58,7 @@ var plotMarkers = function() {};
   user's input.
 ===================== */
 
-var removeMarkers = function() {};
-
+/* var removeMarkers = function()
 /* =====================
   Optional, stretch goal
   Write the necessary code (however you can) to plot a filtered down version of
@@ -81,10 +86,38 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 /* =====================
  CODE EXECUTED HERE!
 ===================== */
+var url = "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-bike-crashes-snippet.json";
+var downloadData = $.ajax(url);
+var parseData = function(pD){
+  return JSON.parse(pD);};
+var makeMarkers = function(mM){
+  return _.map(mM, function(make){ return[make.LAT, make.LNG];
+});};
+var plotMarkers = function(pM){
+  _.map(pM, function(plot){
+    return L.marker(plot).addTo(map);
+  });
+};
+var removeMarkers = function(rM){
+  return _.map(rM, function(remove){
+    L.marker(remove).addTo(map);
+    map.removeLayer(remove);
+  });
+};
 
 downloadData.done(function(data) {
   var parsed = parseData(data);
   var markers = makeMarkers(parsed);
   plotMarkers(markers);
   removeMarkers(markers);
-});
+  });
+
+
+
+/*
+downloadData.done(function(data) {
+  var parsed = parseData(data);
+  var markers = makeMarkers(parsed);
+  plotMarkers(markers);});
+  removeMarkers(markers);
+}); */
